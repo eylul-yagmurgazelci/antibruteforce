@@ -1,7 +1,3 @@
-"""
-Siber Güvenlik Projesi — Flask Backend
-eylül.sql şemasını gerçek SQLite veritabanı ile kullanır.
-"""
 
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS

@@ -179,6 +179,7 @@ INSERT OR IGNORE INTO users (username, email, password_hash) VALUES
     ('mehmet_d',  'mehmet@test.com', '$2b$12$ORNEKHASHDEGERIXYZ003'),
     ('admin',     'admin@test.com',  '$2b$12$ORNEKHASHDEGERIXYZ004');
 
+
 INSERT OR IGNORE INTO login_logs (user_id, ip_address, status, reason) VALUES
     (1, '192.168.1.10', 'failed',  'Wrong password'),
     (1, '192.168.1.10', 'failed',  'Wrong password'),

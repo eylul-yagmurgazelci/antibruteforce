@@ -1,7 +1,3 @@
-/* ================================================================
-   SİBER GÜVENLİK PROJESİ — Frontend (Flask Backend ile çalışır)
-   Tüm veriler gerçek SQLite veritabanında tutulur.
-   ================================================================ */
 
 const API = 'http://127.0.0.1:5000/api';
 
