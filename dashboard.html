@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Siber Güvenlik Projesi - Yönetim Paneli">
+  <title>Siber Güvenlik — Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="dash">
+
+  <div class="dash-header">
+    <h1>🛡️ Siber Güvenlik Paneli</h1>
+    <div class="user-info">
+      <div>Hoş geldin, <strong id="welcomeUser">—</strong></div>
+      <div>Giriş: <span id="loginTime">—</span></div>
+      <div>IP: <span id="loginIp">—</span></div>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button class="btn-clear-logs" onclick="clearAllLogs()">🗑️ Logları Temizle</button>
+      <button onclick="logout()">Çıkış Yap</button>
+    </div>
+  </div>
+
+  <!-- TAB NAVİGASYON -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('overview')">📊 Genel Bakış</button>
+    <button class="tab-btn" onclick="switchTab('filter')">🔍 Log Filtreleme</button>
+    <button class="tab-btn" onclick="switchTab('report')">📈 Raporlama</button>
+  </div>
+
+  <!-- ==================== TAB 1: GENEL BAKIŞ ==================== -->
+  <div class="tab-content active" id="tab-overview">
+
+    <div class="stat-grid" id="statCards"></div>
+
+    <div class="section">
+      <h3>📊 En Çok Saldırı Gelen IP Adresleri (Top 5)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>IP Adresi</th>
+            <th>Toplam Deneme</th>
+            <th>Başarısız</th>
+          </tr>
+        </thead>
+        <tbody id="topIPs"></tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h3>📋 Senin Giriş Geçmişin (Son 10)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Tarih / Saat</th>
+            <th>IP Adresi</th>
+            <th>Durum</th>
+            <th>Açıklama</th>
+          </tr>
+        </thead>
+        <tbody id="logTable"></tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h3>🔍 Tüm Sistem Logları (Son 20)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Kullanıcı</th>
+            <th>Tarih / Saat</th>
+            <th>IP Adresi</th>
+            <th>Durum</th>
+            <th>Açıklama</th>
+          </tr>
+        </thead>
+        <tbody id="allLogTable"></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ==================== TAB 2: LOG FİLTRELEME ==================== -->
+  <div class="tab-content" id="tab-filter">
+
+    <div class="section filter-section">
+      <h3>🔍 Log Filtreleme</h3>
+      <p class="filter-desc">Tarih, kullanıcı, IP adresi ve durum kriterlerine göre logları filtreleyin.</p>
+
+      <div class="filter-grid">
+        <div class="filter-group">
+          <label for="filterUser">👤 Kullanıcı Adı</label>
+          <input type="text" id="filterUser" placeholder="örn: ahmet_y">
+        </div>
+        <div class="filter-group">
+          <label for="filterIP">🌐 IP Adresi</label>
+          <input type="text" id="filterIP" placeholder="örn: 192.168.1.10">
+        </div>
+        <div class="filter-group">
+          <label for="filterDateStart">📅 Başlangıç Tarihi</label>
+          <input type="datetime-local" id="filterDateStart">
+        </div>
+        <div class="filter-group">
+          <label for="filterDateEnd">📅 Bitiş Tarihi</label>
+          <input type="datetime-local" id="filterDateEnd">
+        </div>
+        <div class="filter-group">
+          <label for="filterStatus">📌 Durum</label>
+          <select id="filterStatus">
+            <option value="">Tümü</option>
+            <option value="success">Başarılı</option>
+            <option value="failed">Başarısız</option>
+          </select>
+        </div>
+        <div class="filter-group filter-actions">
+          <button class="btn-filter" onclick="applyFilter()">🔎 Filtrele</button>
+          <button class="btn-clear" onclick="clearFilter()">✖ Temizle</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="filter-result-header">
+        <h3>📋 Filtreleme Sonuçları</h3>
+        <span class="result-count" id="filterCount">0 kayıt bulundu</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Kullanıcı</th>
+            <th>Tarih / Saat</th>
+            <th>IP Adresi</th>
+            <th>Durum</th>
+            <th>Açıklama</th>
+          </tr>
+        </thead>
+        <tbody id="filterResults"></tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ==================== TAB 3: RAPORLAMA ==================== -->
+  <div class="tab-content" id="tab-report">
+
+    <!-- Genel İstatistik Özeti -->
+    <div class="section">
+      <h3>📊 Genel İstatistik Özeti</h3>
+      <div class="report-stats" id="reportStats"></div>
+    </div>
+
+    <!-- Günlük Dağılım -->
+    <div class="section">
+      <h3>📅 Son 7 Günlük Giriş Dağılımı</h3>
+      <div class="chart-container" id="dailyChart"></div>
+    </div>
+
+    <!-- Saat Bazlı Dağılım -->
+    <div class="section">
+      <h3>🕐 Saatlik Saldırı Dağılımı (Bugün)</h3>
+      <div class="chart-container" id="hourlyChart"></div>
+    </div>
+
+    <!-- En Riskli Kullanıcılar -->
+    <div class="section">
+      <h3>⚠️ En Riskli Kullanıcılar (En Çok Başarısız Giriş)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Sıra</th>
+            <th>Kullanıcı</th>
+            <th>E-posta</th>
+            <th>Başarısız Giriş</th>
+            <th>Hesap Durumu</th>
+          </tr>
+        </thead>
+        <tbody id="riskyUsers"></tbody>
+      </table>
+    </div>
+
+    <!-- En Çok Saldırı Gelen IP'ler -->
+    <div class="section">
+      <h3>🚨 En Çok Saldırı Gelen IP Adresleri</h3>
+      <div class="ip-bars" id="ipBars"></div>
+    </div>
+
+    <!-- Kilitli Hesaplar -->
+    <div class="section">
+      <h3>🔒 Şu An Kilitli Hesaplar</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Kullanıcı</th>
+            <th>E-posta</th>
+            <th>Başarısız Deneme</th>
+            <th>Kilit Bitiş</th>
+          </tr>
+        </thead>
+        <tbody id="lockedAccounts"></tbody>
+      </table>
+      <p class="empty-msg" id="noLockedMsg" style="display:none;">✅ Şu an kilitli hesap bulunmuyor.</p>
+    </div>
+
+  </div>
+
+  <p id="userInfo" style="display:none;"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

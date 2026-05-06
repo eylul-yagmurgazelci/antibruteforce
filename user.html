@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kullanıcı Paneli</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg">
+  <div class="card" style="width: 360px; text-align: center;">
+
+    <h2>Hoş Geldin</h2>
+
+    <div style="margin: 20px 0; font-size: 15px; line-height: 1.8;">
+      <p>👤 <strong id="userPanelName">—</strong></p>
+      <p style="font-size: 13px; opacity: 0.6;" id="userPanelEmail">—</p>
+      <p style="font-size: 12px; opacity: 0.5; margin-top: 8px;">Giriş: <span id="userPanelTime">—</span></p>
+    </div>
+
+    <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 16px 0;">
+
+    <p style="font-size: 13px; opacity: 0.5; line-height: 1.6;">
+      Giriş işleminiz başarıyla tamamlanmıştır.<br>
+      Bu panel yalnızca bilgilendirme amaçlıdır.
+    </p>
+
+    <button onclick="logout()" style="margin-top: 20px;">Çıkış Yap</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
