@@ -6,7 +6,9 @@ CREATE TABLE IF NOT EXISTS users (
     created_at      DATETIME     DEFAULT CURRENT_TIMESTAMP,
     is_locked       BOOLEAN      DEFAULT FALSE,
     failed_attempts INTEGER      DEFAULT 0,
-    lock_until      DATETIME     DEFAULT NULL
+    lock_until      DATETIME     DEFAULT NULL,
+    lock_count      INTEGER      DEFAULT 0,
+    requires_reset  BOOLEAN      DEFAULT FALSE 
 );
 
 CREATE TABLE IF NOT EXISTS login_logs (

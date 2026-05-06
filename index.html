@@ -1,61 +1,64 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="bg">
+  <div class="bg">
 
-  <div class="card" id="login">
+    <div class="card" id="login">
 
-    <h2>Giriş Yap</h2>
+      <h2>Giriş Yap</h2>
 
-    <input id="loginUser" placeholder="Kullanıcı">
-    <input id="loginPass" type="password" placeholder="Şifre">
+      <input id="loginUser" placeholder="Kullanıcı">
+      <input id="loginPass" type="password" placeholder="Şifre">
 
-    <button onclick="login()">Giriş</button>
+      <button onclick="login()">Giriş</button>
 
-    <p class="link" onclick="show('register')">Kayıt ol</p>
-    <p class="link" onclick="show('forgot')">Şifremi unuttum</p>
+      <p class="link" onclick="show('register')">Kayıt ol</p>
+      <p class="link" onclick="show('forgot')">Şifremi unuttum</p>
 
-    <p id="msg" class="msg"></p>
+      <p id="msg" class="msg"></p>
+    </div>
+
+    <div class="card hidden" id="register">
+      <h2>Kayıt Ol</h2>
+
+      <input id="regUser" placeholder="Kullanıcı">
+      <input id="regEmail" placeholder="E-mail">
+      <input id="regPass" type="password" placeholder="Şifre (min 6)">
+
+      <button onclick="register()">Kayıt Ol</button>
+
+      <p class="link" onclick="show('login')">Geri dön</p>
+
+      <p id="regMsg" class="msg"></p>
+    </div>
+
+    <div class="card hidden" id="forgot">
+      <h2>Şifremi Unuttum</h2>
+
+      <input id="email" placeholder="E-mail">
+      <input id="code" placeholder="Kod">
+      <input id="newPass" type="password" placeholder="Yeni şifre">
+
+      <button onclick="sendCode()">Kod gönder</button>
+      <button onclick="resetPass()">Şifre değiştir</button>
+
+      <p class="link" onclick="show('login')">Geri dön</p>
+
+      <p id="forgotMsg" class="msg"></p>
+    </div>
+
   </div>
 
-  <div class="card hidden" id="register">
-    <h2>Kayıt Ol</h2>
-
-    <input id="regUser" placeholder="Kullanıcı">
-    <input id="regEmail" placeholder="E-mail">
-    <input id="regPass" type="password" placeholder="Şifre (min 6)">
-
-    <button onclick="register()">Kayıt Ol</button>
-
-    <p class="link" onclick="show('login')">Geri dön</p>
-
-    <p id="regMsg" class="msg"></p>
-  </div>
-
-  <div class="card hidden" id="forgot">
-    <h2>Şifremi Unuttum</h2>
-
-    <input id="email" placeholder="E-mail">
-    <input id="code" placeholder="Kod">
-    <input id="newPass" type="password" placeholder="Yeni şifre">
-
-    <button onclick="sendCode()">Kod gönder</button>
-    <button onclick="resetPass()">Şifre değiştir</button>
-
-    <p class="link" onclick="show('login')">Geri dön</p>
-
-    <p id="forgotMsg" class="msg"></p>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
